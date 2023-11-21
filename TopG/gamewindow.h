@@ -2,6 +2,8 @@
 #define GAMEWINDOW_H
 
 #include <QMainWindow>
+#include "target.h"
+#include "obstacles.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GameWindow; }
@@ -22,7 +24,7 @@ public:
 private:
     Ui::GameWindow *ui;
     int Current_Level;
-    Target targets;
+    target targets;
     Obstacles obstacles;
     int Remaing_shots;
 };

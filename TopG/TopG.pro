@@ -10,10 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    gamewindow.cpp
+    gamewindow.cpp \
+    obstacles.cpp \
+    target.cpp
 
 HEADERS += \
-    gamewindow.h
+    gamewindow.h \
+    obstacles.h \
+    target.h
 
 FORMS += \
     gamewindow.ui
