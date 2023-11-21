@@ -30,25 +30,5 @@ private:
 };
 #endif // GAMEWINDOW_H
 
-Class Level {
-
-    private:
-int LevelDiffcultiy;
-
-    public : 
-void SetLevelDIF (int LevelDIf) {
-
-    LevelDIF=LevelDiffcultiy;
-}
-
-int getLevelDif()
-{
-    return LevelDiffcultiy;
-}
-
-void setTarget();
-void SetObstacles();
-void IncreaseDiffculity();
-
 
 
