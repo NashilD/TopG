@@ -1,5 +1,7 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
+#include "level.h"
+
 
 GameWindow::GameWindow()
 {
@@ -78,8 +80,8 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
         Player-> setFocus();
         scene->addItem(Player);
 
-        T = new target(396,295,80,80);
-        scene->addItem(T);
+        //Level L(Current_Level,this);
+        L = new Level(1,this);
 
         //target T(10,305,80,80);
     }

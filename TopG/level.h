@@ -1,11 +1,14 @@
 #ifndef LEVEL_H
 #define LEVEL_H
-
-
-class Level
+#include "target.h"
+#include "obstacles.h"
+#include <QGraphicsPixmapItem>
+#include <QObject>
+class GameWindow;
+class Level : public QObject
 {
 public:
-    Level();
+    Level(int num, GameWindow* GW);
     void SetLevelDIF (int LevelDIf);
     int getLevelDif();
     void setTarget();
@@ -13,8 +16,9 @@ public:
     void IncreaseDiffculity();
 private:
     int LevelDifficulty;
-    int Target; 
-    int Obstacles; 
+    int level;
+    target* T;
+    GameWindow* gw;
 };
 
 #endif // LEVEL_H

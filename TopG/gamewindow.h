@@ -17,6 +17,7 @@
 #include "obstacles.h"
 #include "player.h"
 
+class Level;
 class GameWindow : public QGraphicsView
 {
     Q_OBJECT
@@ -39,7 +40,7 @@ private:
     int Remaing_shots;
     bool Started;
     player* Player;
-    target* T;
+    Level* L;
 };
 #endif // GAMEWINDOW_H
 
