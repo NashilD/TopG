@@ -2,7 +2,10 @@
 #define OBSTACLES_H
 #include "target.h"
 
-class Obstacles
+#include <QGraphicsPixmapItem>
+#include <QObject>
+
+class Obstacles : public QObject, public QGraphicsPixmapItem
 {
 public:
     Obstacles(int X, int Y, int Width, int Height);

@@ -15,6 +15,7 @@
 #include <QTimer>
 #include "target.h"
 #include "obstacles.h"
+#include "player.h"
 
 class GameWindow : public QGraphicsView
 {
@@ -29,17 +30,16 @@ public:
     int GetLevel();
     void displayStartMessage();
     void FinLevel();
+    void addToScene(QGraphicsPixmapItem* temp);
+    QGraphicsScene* scene;
 protected:
     void mousePressEvent(QMouseEvent *event) override;
-
-    QGraphicsScene* scene;
-    QGraphicsView* view;
 private:
     int Current_Level;
-    target* targets;
-    Obstacles* obstacles;
     int Remaing_shots;
     bool Started;
+    player* Player;
+    target* T;
 };
 #endif // GAMEWINDOW_H
 

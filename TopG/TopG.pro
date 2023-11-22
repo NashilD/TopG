@@ -13,12 +13,14 @@ SOURCES += \
     main.cpp \
     gamewindow.cpp \
     obstacles.cpp \
+    player.cpp \
     target.cpp
 
 HEADERS += \
     gamewindow.h \
     level.h \
     obstacles.h \
+    player.h \
     target.h
 
 FORMS += \
@@ -28,3 +30,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resource.qrc

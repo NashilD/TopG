@@ -1,4 +1,6 @@
 #include "target.h"
+#include "gamewindow.h"
+
 
 target::target(int X, int Y, int Width, int Height)
 {
@@ -7,6 +9,12 @@ target::target(int X, int Y, int Width, int Height)
     TWidth = Width;
     THeight = Height;
     THitStatus = false;
+
+    QPixmap Emoji(":/images/Emoji target.jpg");
+    Emoji = Emoji.scaledToHeight(Height);
+    Emoji = Emoji.scaledToWidth(Width);
+    setPixmap(Emoji);
+    setPos(X,Y);
 }
 
 int target::GetPosX()

@@ -1,7 +1,9 @@
 #ifndef TARGET_H
 #define TARGET_H
 
-class target
+#include <QGraphicsPixmapItem>
+#include <QObject>
+class target : public QObject, public QGraphicsPixmapItem
 {
 public:
     target(int X, int Y, int Width, int Height);

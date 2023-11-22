@@ -9,31 +9,12 @@ GameWindow::GameWindow()
     setFixedSize(1000,650);
     setWindowTitle("Game Name");
 
-    QBrush Background(Qt::blue);
-    scene->setBackgroundBrush(Background);
-
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     setScene(scene);
+
     displayStartMessage();
-    if (Started = true)
-    {
-    Current_Level = 1;
-    Remaing_shots = 10;
-    QGraphicsTextItem* textLevel = new QGraphicsTextItem("Level "+ QString::number(Current_Level));
-    textLevel->setFont(QFont("times",16));
-    textLevel->setPos(10,610);
-    textLevel->setDefaultTextColor(Qt::black);
-    QGraphicsTextItem* textShots = new QGraphicsTextItem("Shots remaining "+ QString::number(Remaing_shots));
-    textShots->setFont(QFont("times",16));
-    textShots->setPos(800,610);
-    textLevel->setDefaultTextColor(Qt::black);
-
-    scene->addItem(textLevel);
-    scene->addItem(textShots);
-    }
-
 }
 
 GameWindow::~GameWindow()
@@ -62,12 +43,45 @@ void GameWindow::FinLevel()
     FinishMessage->setPos(396, 307);
 }
 
+void GameWindow::addToScene(QGraphicsPixmapItem *temp)
+{
+    scene->addItem(temp);
+}
+
 void GameWindow::mousePressEvent(QMouseEvent *event)
 {
     if (scene->items().size() > 0)
     {
         scene->clear();
         Started = true;
+    }
+
+    if (Started = true)
+    {
+        Current_Level = 1;
+        Remaing_shots = 3;
+        QGraphicsTextItem* textLevel = new QGraphicsTextItem("Level "+ QString::number(Current_Level));
+        textLevel->setFont(QFont("times",16));
+        textLevel->setPos(10,610);
+        textLevel->setDefaultTextColor(Qt::black);
+        QGraphicsTextItem* textShots = new QGraphicsTextItem("Shots remaining "+ QString::number(Remaing_shots));
+        textShots->setFont(QFont("times",16));
+        textShots->setPos(800,610);
+        textLevel->setDefaultTextColor(Qt::black);
+
+        scene->addItem(textLevel);
+        scene->addItem(textShots);
+
+        Player = new player();
+        Player->setPos(10,295);
+        Player->setFlag(QGraphicsItem::ItemIsFocusable);
+        Player-> setFocus();
+        scene->addItem(Player);
+
+        T = new target(396,295,80,80);
+        scene->addItem(T);
+
+        //target T(10,305,80,80);
     }
 
 }

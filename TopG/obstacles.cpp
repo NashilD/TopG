@@ -1,12 +1,18 @@
 #include "obstacles.h"
 
-Obstacles::Obstacles(int x, int y, int width, int height)
+Obstacles::Obstacles(int x, int y, int width, int height) : QObject(), QGraphicsPixmapItem()
 {
     OPosX = x;
     OPosY = y;
     OWidth = width;
     OHeight = height;
     OHitStatus = false;
+
+    QPixmap obstacle("");
+    obstacle = obstacle.scaledToHeight(height);
+    obstacle = obstacle.scaledToWidth(width);
+    setPixmap(obstacle);
+    setPos(x,y);
 }
 
 int Obstacles::GetPosX()
