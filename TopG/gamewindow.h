@@ -1,6 +1,5 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
-
 #include <QMainWindow>
 #include <QGraphicsRectItem>
 #include <QGraphicsEllipseItem>
@@ -15,9 +14,7 @@
 #include <QTimer>
 #include "target.h"
 #include "obstacles.h"
-#include "player.h"
 
-class Level;
 class GameWindow : public QGraphicsView
 {
     Q_OBJECT
@@ -29,20 +26,20 @@ public:
     int GetShots();
     void SetShots(int);
     int GetLevel();
+    void SetLevel(int);
     void displayStartMessage();
     void FinLevel();
-    void addToScene(QGraphicsPixmapItem* temp);
-    QGraphicsScene* scene;
+
 protected:
-    void mousePressEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent* event) override;
+
+    QGraphicsScene* scene;
+    QGraphicsView* view;
 private:
     int Current_Level;
+    target* targets;
+    Obstacles* obstacles;
     int Remaing_shots;
     bool Started;
-    player* Player;
-    Level* L;
 };
 #endif // GAMEWINDOW_H
-
-
-

@@ -1,11 +1,32 @@
-#include "player.h"
 #include "gamewindow.h"
+#include "trajectory.h"
 
-
-player::player() : QObject(), QGraphicsPixmapItem()
+Player::Player(int Level, int Shots)
 {
-    QPixmap playerPixmap(":/images/Canon.png");
-    playerPixmap = playerPixmap.scaledToHeight(80);
-    playerPixmap = playerPixmap.scaledToWidth(80);
-    setPixmap(playerPixmap);
+    Angle = angle;
+    Force = force;
+    Max_Shots = max_shot;
+}
+
+
+int Player::GetMax_shot()
+{
+    return Max_Shots;
+}
+void Player::SetAngle(double angle )
+{
+    Angle = angle;
+}
+int Player::GetShots()
+{
+    return Remaing_shots;
+}
+void Player::SetMax_shot(int max_shot)
+{
+    Max_Shots = max_shot;
+}
+void Player::SetForce(double force)
+{
+    Force = force;
+
 }
