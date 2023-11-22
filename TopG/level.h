@@ -11,9 +11,8 @@ public:
     void setTarget();
     void SetObstacles();
     void IncreaseDiffculity();
-
 private:
-    int LevelDiffcultiy;
+    int LevelDifficulty;
 };
 
 #endif // LEVEL_H

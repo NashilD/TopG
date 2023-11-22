@@ -2,31 +2,44 @@
 #define GAMEWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsRectItem>
+#include <QGraphicsEllipseItem>
+#include <QGraphicsTextItem>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsView>
+#include <QApplication>
+#include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QGraphicsTextItem>
+#include <QMouseEvent>
+#include <QTimer>
 #include "target.h"
 #include "obstacles.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class GameWindow; }
-QT_END_NAMESPACE
-
-class GameWindow : public QMainWindow
+class GameWindow : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    GameWindow(QWidget *parent = nullptr);
+    GameWindow();
     ~GameWindow();
-    Bool Game_over;
+    bool Game_over;
     int GetShots();
     void SetShots(int);
     int GetLevel();
-    void SetShots(int);
+    void displayStartMessage();
+    void FinLevel();
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
+
+    QGraphicsScene* scene;
+    QGraphicsView* view;
 private:
-    Ui::GameWindow *ui;
     int Current_Level;
-    target targets;
-    Obstacles obstacles;
+    target* targets;
+    Obstacles* obstacles;
     int Remaing_shots;
+    bool Started;
 };
 #endif // GAMEWINDOW_H
 

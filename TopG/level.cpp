@@ -5,13 +5,12 @@ Level::Level()
 
 }
 
-void SetLevelDIF (int LevelDIf)
+void Level::SetLevelDIF(int LevelDIf)
 {
-
-    LevelDIF=LevelDiffcultiy;
+    LevelDifficulty = LevelDIf;
 }
 
-int getLevelDif()
+int Level::getLevelDif()
 {
-    return LevelDiffcultiy;
+    return LevelDifficulty;
 }
