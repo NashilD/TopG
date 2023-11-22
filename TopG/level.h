@@ -13,6 +13,8 @@ public:
     void IncreaseDiffculity();
 private:
     int LevelDifficulty;
+    int Target; 
+    int Obstacles; 
 };
 
 #endif // LEVEL_H
