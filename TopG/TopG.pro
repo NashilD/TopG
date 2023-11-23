@@ -14,14 +14,16 @@ SOURCES += \
     gamewindow.cpp \
     obstacles.cpp \
     player.cpp \
-    target.cpp
+    target.cpp \
+    trajectory.cpp
 
 HEADERS += \
     gamewindow.h \
     level.h \
     obstacles.h \
     player.h \
-    target.h
+    target.h \
+    trajectory.h
 
 FORMS += \
     gamewindow.ui

@@ -1,18 +1,28 @@
 #ifndef TRAJECTORY_H
 #define TRAJECTORY_H
 
-class trajectory
+#include <QGraphicsLineItem>
+#include <QGraphicsSceneMouseEvent>
+#include <QMouseEvent>
+#include <QPointF>
+#include <QObject>
+
+class trajectory : public QGraphicsLineItem, public QObject
 {
-private:
-    double force;
-    double angle;
-    double distance;
 public:
-    double GetDistance();
-    void setAngle(double);
-    void setForce(double);
+    trajectory();
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void setAngle(double angle);
+    void setForce(double force);
 
-
+private:
+    bool mousePressed;
+    QPointF startPoint;
+    QPointF endPoint;
+    double angle;
+    double force;
 };
 
 #endif // TRAJECTORY_H

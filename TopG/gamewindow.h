@@ -16,6 +16,7 @@
 #include "target.h"
 #include "obstacles.h"
 #include "player.h"
+#include "trajectory.h"
 
 class Level;
 class GameWindow : public QGraphicsView
@@ -41,6 +42,7 @@ private:
     bool Started;
     player* Player;
     Level* L;
+   // trajectory *tajectoryPath;
 };
 #endif // GAMEWINDOW_H
 

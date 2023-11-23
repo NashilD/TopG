@@ -82,6 +82,12 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
 
         //Level L(Current_Level,this);
         L = new Level(1,this);
+        trajectory *trajectoryPath = new trajectory();
+        trajectoryPath->setZValue(1);
+        scene->addItem(trajectoryPath);
+        installEventFilter(trajectoryPath);
+        scene->update();
+
 
         //target T(10,305,80,80);
     }
