@@ -45,6 +45,7 @@ private:
     Level* L;
     double Angle;
     double Force;
+    projectile *Proj;
    // trajectory *tajectoryPath;
 };
 #endif // GAMEWINDOW_H

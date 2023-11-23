@@ -80,8 +80,6 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
 
         Player = new player();
         Player->setPos(10,295);
-        Player->setFlag(QGraphicsItem::ItemIsFocusable);
-        Player-> setFocus();
         scene->addItem(Player);
 
         //Level L(Current_Level,this);
@@ -97,12 +95,12 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
     }
 
 }
-void GameWindow::mousePressEvent(QMouseEvent *event)
-{
-    trajectory * trajectory = new trajectory();
-    trajectory ->setPos(event->pos());
-    scene ->addItem(trajectory);
-}
+//void GameWindow::mousePressEvent(QMouseEvent *event)
+//{
+//    trajectory * trajectory = new trajectory();
+//    trajectory ->setPos(event->pos());
+//    scene ->addItem(trajectory);
+//}
 void GameWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event -> key() == Qt::Key_Up)
@@ -113,32 +111,24 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
     {
         Angle -= 5;
     }
-    if(event -> key() -> == Qt::Key_Right)
+    if(event -> key() == Qt::Key_Right)
     {
         Force += 5;
     }
-    if(event -> key() -> == Qt::Key_Left)
+    if(event -> key() == Qt::Key_Left)
     {
         if(Force != 0)
          {
             Force -=5;
          }
     }
-void GameWindow::keyPressEvent(QKeyEvent *event)
-    {
-         if (event->key() == Qt::Key_P)
+    if (event->key() == Qt::Key_P)
          {
              // Create a new Projectile when 'P' key is pressed
-             delete currentProjectile; // Delete existing projectile if it exists
-             currentProjectile = new Projectile(0.0, 0.0); // Create a new projectile
+             delete Proj; // Delete existing projectile if it exists
+             Proj = new projectile(Angle,Force); // Create a new projectile
              qDebug() << "New Projectile Created!";
          }
-         // Handle other key press events...
-    }
-
-
-
-
 
 }
 

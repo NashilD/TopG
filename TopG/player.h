@@ -12,6 +12,7 @@ private:
 
 public:
     player();
+    player(double angle, double force);
     void SetAngle(double);
     void SetForce(double);
 };
