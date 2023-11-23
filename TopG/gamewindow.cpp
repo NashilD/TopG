@@ -1,5 +1,7 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
+#include "level.h"
+
 
 GameWindow::GameWindow()
 {
@@ -9,31 +11,12 @@ GameWindow::GameWindow()
     setFixedSize(1000,650);
     setWindowTitle("Game Name");
 
-    QBrush Background(Qt::blue);
-    scene->setBackgroundBrush(Background);
-
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     setScene(scene);
+
     displayStartMessage();
-    if (Started = true)
-    {
-        Current_Level = 1;
-        Remaing_shots = 10;
-        QGraphicsTextItem* textLevel = new QGraphicsTextItem("Level "+ QString::number(Current_Level));
-        textLevel->setFont(QFont("times",16));
-        textLevel->setPos(10,610);
-        textLevel->setDefaultTextColor(Qt::black);
-        QGraphicsTextItem* textShots = new QGraphicsTextItem("Shots remaining "+ QString::number(Remaing_shots));
-        textShots->setFont(QFont("times",16));
-        textShots->setPos(800,610);
-        textLevel->setDefaultTextColor(Qt::black);
-
-        scene->addItem(textLevel);
-        scene->addItem(textShots);
-    }
-
 }
 
 GameWindow::~GameWindow()
@@ -62,30 +45,10 @@ void GameWindow::FinLevel()
     FinishMessage->setPos(396, 307);
 }
 
-GameWindow::GameWindow(int Level, int Shots)
+void GameWindow::addToScene(QGraphicsPixmapItem *temp)
 {
-    Current_Level; = Level;
-    Remaing_shots = Shots;
+    scene->addItem(temp);
 }
-
-int GameWindow::GetLevel()
-{
-    return Current_Level;
-}
-
-void GameWindow::SetLevel(int level)
-{
-    Current_Level = level;
-}
-int GameWindow::GetShots()
-{
-    return Remaing_shots;
-}
-void GameWindow::SetShots(int shots)
-{
-    Remaing_shots = shots;
-}
-
 
 void GameWindow::mousePressEvent(QMouseEvent *event)
 {
@@ -93,6 +56,34 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
     {
         scene->clear();
         Started = true;
+    }
+
+    if (Started = true)
+    {
+        Current_Level = 1;
+        Remaing_shots = 3;
+        QGraphicsTextItem* textLevel = new QGraphicsTextItem("Level "+ QString::number(Current_Level));
+        textLevel->setFont(QFont("times",16));
+        textLevel->setPos(10,610);
+        textLevel->setDefaultTextColor(Qt::black);
+        QGraphicsTextItem* textShots = new QGraphicsTextItem("Shots remaining "+ QString::number(Remaing_shots));
+        textShots->setFont(QFont("times",16));
+        textShots->setPos(800,610);
+        textLevel->setDefaultTextColor(Qt::black);
+
+        scene->addItem(textLevel);
+        scene->addItem(textShots);
+
+        Player = new player();
+        Player->setPos(10,295);
+        Player->setFlag(QGraphicsItem::ItemIsFocusable);
+        Player-> setFocus();
+        scene->addItem(Player);
+
+        //Level L(Current_Level,this);
+        L = new Level(1,this);
+
+        //target T(10,305,80,80);
     }
 
 }

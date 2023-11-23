@@ -1,22 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "GameWindow.h"
-#include "trajectory.h"
 
-class player : public GameWindow, public trajectory
+#include <QObject>
+#include <QGraphicsPixmapItem>
+
+class player : public QObject, public QGraphicsPixmapItem
 {
-private:
-    double Angle;
-    double Force;
-    int Max_Shots;
 public:
-    void SetAngle(double);
-    void SetForce(double);
-    void SetMax_shot(int);
-    int GetMax_shot();
-
-
+    player();
 };
-
 
 #endif // PLAYER_H
