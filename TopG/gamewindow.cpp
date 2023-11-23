@@ -2,10 +2,13 @@
 #include "ui_gamewindow.h"
 #include "level.h"
 #include "trajectory.h"
+#include "projectile.h"
 
 
 GameWindow::GameWindow()
 {
+    Force = 0;
+    Angle = 0;
     scene = new QGraphicsScene;
 
     scene->setSceneRect(0, 0, 1000, 650);
@@ -100,3 +103,42 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
     trajectory ->setPos(event->pos());
     scene ->addItem(trajectory);
 }
+void GameWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event -> key() == Qt::Key_Up)
+    {
+        Angle += 5;
+    }
+    else if(event -> key() == Qt::Key_Down)
+    {
+        Angle -= 5;
+    }
+    if(event -> key() -> == Qt::Key_Right)
+    {
+        Force += 5;
+    }
+    if(event -> key() -> == Qt::Key_Left)
+    {
+        if(Force != 0)
+         {
+            Force -=5;
+         }
+    }
+void GameWindow::keyPressEvent(QKeyEvent *event)
+    {
+         if (event->key() == Qt::Key_P)
+         {
+             // Create a new Projectile when 'P' key is pressed
+             delete currentProjectile; // Delete existing projectile if it exists
+             currentProjectile = new Projectile(0.0, 0.0); // Create a new projectile
+             qDebug() << "New Projectile Created!";
+         }
+         // Handle other key press events...
+    }
+
+
+
+
+
+}
+

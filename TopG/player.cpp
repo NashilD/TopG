@@ -9,3 +9,19 @@ player::player() : QObject(), QGraphicsPixmapItem()
     playerPixmap = playerPixmap.scaledToWidth(80);
     setPixmap(playerPixmap);
 }
+
+player::player(double angle, double force)
+{
+    Angle = angle;
+    Force = force;
+}
+
+void player::SetAngle(double angle)
+{
+    Angle = angle;
+}
+
+void player::SetForce(double force)
+{
+    Force = force;
+}

@@ -16,7 +16,7 @@
 #include "target.h"
 #include "obstacles.h"
 #include "player.h"
-#include "trajectory.h"
+#include "projectile.h"
 
 class Level;
 class GameWindow : public QGraphicsView
@@ -36,12 +36,15 @@ public:
     QGraphicsScene* scene;
 protected:
     void mousePressEvent(QMouseEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
 private:
     int Current_Level;
     int Remaing_shots;
     bool Started;
     player* Player;
     Level* L;
+    double Angle;
+    double Force;
    // trajectory *tajectoryPath;
 };
 #endif // GAMEWINDOW_H
