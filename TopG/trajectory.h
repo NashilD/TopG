@@ -2,13 +2,15 @@
 #define TRAJECTORY_H
 
 #include <QGraphicsLineItem>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QMouseEvent>
 #include <QPointF>
 #include <QObject>
 
-class trajectory : public QGraphicsLineItem, public QObject
+class trajectory : public QGraphicsPixmapItem, public QObject
 {
+    Q_OBJECT
 public:
     trajectory();
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
@@ -16,6 +18,7 @@ public:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     void setAngle(double angle);
     void setForce(double force);
+    void move();
 
 private:
     bool mousePressed;
@@ -23,6 +26,7 @@ private:
     QPointF endPoint;
     double angle;
     double force;
+    double x, y;
 };
 
 #endif // TRAJECTORY_H
