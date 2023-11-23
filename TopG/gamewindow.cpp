@@ -1,6 +1,7 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
 #include "level.h"
+#include "trajectory.h"
 
 
 GameWindow::GameWindow()
@@ -92,4 +93,10 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
         //target T(10,305,80,80);
     }
 
+}
+void GameWindow::mousePressEvent(QMouseEvent *event)
+{
+    trajectory * trajectory = new trajectory();
+    trajectory ->setPos(event->pos());
+    scene ->addItem(trajectory);
 }

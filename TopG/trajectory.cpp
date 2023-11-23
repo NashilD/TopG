@@ -1,4 +1,7 @@
 #include "trajectory.h"
+#include <QTimer>
+#include <QPixmap>
+#include <qmath.h>
 
 trajectory::trajectory()
 {
@@ -6,6 +9,29 @@ trajectory::trajectory()
     angle = 0;
     force = 0;
 }
+trajectory::trajectory(double a, double f) : QObject(), QGraphicsPixmapItem()
+{
+    QPixmap trajectoryPixmap(":/images/cannonball_PNG2.png");
+    trajectoryPixmap = trajectoryPixmap.scaledToHeight(40);
+    trajectoryPixmap = trajectoryPixmap.scaledToWidth(40);
+    setPixmap(trajectoryPixmap);
+    force = f;
+    angle = a;
+    QTimer * move_timer = new QTimer(this);
+    connect (move_timer,SIGNAL(timeout()), this, SLOT(move()));
+    move_timer->start(50);
+
+}
+
+void trajectory::move()
+{
+    y =  y + force * qsin(qDegreesToRadians(angle));
+    x =  x + force  * qcos(qDegreesToRadians(angle));
+    angle = (double)angle - 0.05;
+    setPos(x()+x, y()+y);
+
+}
+
 
 void trajectory::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
