@@ -1,6 +1,5 @@
 #ifndef OBSTACLES_H
 #define OBSTACLES_H
-#include "target.h"
 
 #include <QGraphicsPixmapItem>
 #include <QObject>

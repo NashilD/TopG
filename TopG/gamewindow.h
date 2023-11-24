@@ -13,10 +13,8 @@
 #include <QGraphicsTextItem>
 #include <QMouseEvent>
 #include <QTimer>
-#include "target.h"
-#include "obstacles.h"
 #include "player.h"
-#include "target.h"
+#include "level.h"
 
 class GameWindow : public QGraphicsView
 {
@@ -31,6 +29,7 @@ public:
     int GetLevel();
     void displayStartMessage();
     void FinLevel();
+    void Lost();
     void addToScene(QGraphicsPixmapItem* temp);
     QGraphicsScene* scene;
 protected:

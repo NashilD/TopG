@@ -33,7 +33,7 @@ GameWindow::~GameWindow()
 void GameWindow::displayStartMessage()
 {
     Started = false;
-    QGraphicsTextItem *startMessage = new QGraphicsTextItem("Click to start the game");
+    QGraphicsTextItem *startMessage = new QGraphicsTextItem("Click to start the game.\n Use the left and right arrows to control the force.\n Use the up and down arrows to control the angle.");
     QFont font;
     font.setPixelSize(20); // Set the font size as needed
     startMessage->setFont(font);
@@ -44,11 +44,22 @@ void GameWindow::displayStartMessage()
 
 void GameWindow::FinLevel()
 {
-    QGraphicsTextItem* FinishMessage = new QGraphicsTextItem("Finsihed with level" +QString::number(Current_Level));
-    QFont font;
-    font.setPixelSize(20); // Set the font size as needed
-    FinishMessage->setFont(font);
-    FinishMessage->setPos(396, 307);
+    scene->clear();
+    QGraphicsTextItem* FinishMessage = new QGraphicsTextItem("Finsihed with level " +QString::number(Current_Level));
+    FinishMessage->setFont(QFont("times",50));
+    FinishMessage->setPos(396,307);
+    FinishMessage->setDefaultTextColor(Qt::green);
+    scene->addItem(FinishMessage);
+}
+
+void GameWindow::Lost()
+{
+    scene->clear();
+    QGraphicsTextItem* LostMessage = new QGraphicsTextItem("You lost at level " +QString::number(Current_Level));
+    LostMessage->setFont(QFont("times",50));
+    LostMessage->setPos(396,307);
+    LostMessage->setDefaultTextColor(Qt::red);
+    scene->addItem(LostMessage);
 }
 
 void GameWindow::addToScene(QGraphicsPixmapItem *temp)
@@ -130,8 +141,26 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
     }
     if (event->key() == Qt::Key_P)
      {
+         scene->removeItem(textShots);
+         Remaing_shots--;
+         textShots = new QGraphicsTextItem("Shots remaining "+ QString::number(Remaing_shots));
+         textShots->setFont(QFont("times",16));
+         textShots->setPos(800,610);
+         textShots->setDefaultTextColor(Qt::black);
+         scene->addItem(textShots);
          Proj = new projectile(Angle,Force); // Create a new projectile
+
          scene->addItem(Proj);
+         if (Proj->GetCollision() == true)
+         {
+            QMessageBox::information(nullptr,"info","Done");
+            FinLevel();
+         }
+
+         if (Remaing_shots == 0)
+         {
+            Lost();
+         }
      }
 
 }
