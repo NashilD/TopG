@@ -16,9 +16,8 @@
 #include "target.h"
 #include "obstacles.h"
 #include "player.h"
-#include "projectile.h"
+#include "target.h"
 
-class Level;
 class GameWindow : public QGraphicsView
 {
     Q_OBJECT
@@ -40,13 +39,17 @@ protected:
 private:
     int Current_Level;
     int Remaing_shots;
-    bool Started;
+    bool Started, projCreated;
     player* Player;
     Level* L;
     double Angle;
     double Force;
-    projectile *Proj;
-   // trajectory *tajectoryPath;
+    QGraphicsTextItem *TextForce;
+    QGraphicsTextItem *TextAngle;
+    QGraphicsTextItem* textLevel;
+    QGraphicsTextItem* textShots;
+    projectile * Proj;
+
 };
 #endif // GAMEWINDOW_H
 

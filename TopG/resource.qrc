@@ -2,5 +2,6 @@
     <qresource prefix="/images">
         <file>Canon.png</file>
         <file>Emoji target.jpg</file>
+        <file>pngimg.com - cannonball_PNG2.png</file>
     </qresource>
 </RCC>

@@ -1,6 +1,6 @@
 #include "target.h"
+#include "projectile.h"
 #include "gamewindow.h"
-
 
 target::target(int X, int Y, int Width, int Height)
 {

@@ -3,6 +3,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <QObject>
+#include "projectile.h"
 class target : public QObject, public QGraphicsPixmapItem
 {
 public:

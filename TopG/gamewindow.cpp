@@ -3,12 +3,14 @@
 #include "level.h"
 #include "trajectory.h"
 #include "projectile.h"
+#include <QMessageBox>
 
 
 GameWindow::GameWindow()
 {
     Force = 0;
     Angle = 0;
+    projCreated = false;
     scene = new QGraphicsScene;
 
     scene->setSceneRect(0, 0, 1000, 650);
@@ -65,70 +67,72 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
     if (Started = true)
     {
         Current_Level = 1;
-        Remaing_shots = 3;
-        QGraphicsTextItem* textLevel = new QGraphicsTextItem("Level "+ QString::number(Current_Level));
+        Remaing_shots = 10;
+
+        textLevel = new QGraphicsTextItem("Level "+ QString::number(Current_Level));
         textLevel->setFont(QFont("times",16));
         textLevel->setPos(10,610);
         textLevel->setDefaultTextColor(Qt::black);
-        QGraphicsTextItem* textShots = new QGraphicsTextItem("Shots remaining "+ QString::number(Remaing_shots));
+
+        textShots = new QGraphicsTextItem("Shots remaining "+ QString::number(Remaing_shots));
         textShots->setFont(QFont("times",16));
         textShots->setPos(800,610);
-        textLevel->setDefaultTextColor(Qt::black);
+        textShots->setDefaultTextColor(Qt::black);
 
-        scene->addItem(textLevel);
-        scene->addItem(textShots);
+        TextAngle = new QGraphicsTextItem("Angle: " + QString::number(Angle));
+        TextAngle->setFont(QFont("times",16));
+        TextAngle->setPos(207,610);
+        TextAngle->setDefaultTextColor(Qt::black);
+
+        TextForce = new QGraphicsTextItem("Force: " + QString::number(Force));
+        TextForce->setFont(QFont("times",16));
+        TextForce->setPos(407,610);
+        TextForce->setDefaultTextColor(Qt::black);
 
         Player = new player();
         Player->setPos(10,295);
         scene->addItem(Player);
 
-        //Level L(Current_Level,this);
+        scene->addItem(textLevel);
+        scene->addItem(textShots);
+        scene->addItem(TextAngle);
+        scene->addItem(TextForce);
+
         L = new Level(1,this);
-        trajectory *trajectoryPath = new trajectory();
-        trajectoryPath->setZValue(1);
-        scene->addItem(trajectoryPath);
-        installEventFilter(trajectoryPath);
-        scene->update();
-
-
-        //target T(10,305,80,80);
     }
 
 }
-//void GameWindow::mousePressEvent(QMouseEvent *event)
-//{
-//    trajectory * trajectory = new trajectory();
-//    trajectory ->setPos(event->pos());
-//    scene ->addItem(trajectory);
-//}
+
 void GameWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event -> key() == Qt::Key_Up)
     {
         Angle += 5;
+        TextAngle->setPlainText("Angle: " + QString::number(Angle));
     }
     else if(event -> key() == Qt::Key_Down)
     {
-        Angle -= 5;
+        Angle -= 10;
+        TextAngle->setPlainText("Angle: " + QString::number(Angle));
     }
     if(event -> key() == Qt::Key_Right)
     {
-        Force += 5;
+        Force += 10;
+        TextForce->setPlainText("Force: " + QString::number(Force));
     }
     if(event -> key() == Qt::Key_Left)
     {
         if(Force != 0)
          {
             Force -=5;
+            TextForce->setPlainText("Force: " + QString::number(Force));
          }
     }
     if (event->key() == Qt::Key_P)
-         {
-             // Create a new Projectile when 'P' key is pressed
-             delete Proj; // Delete existing projectile if it exists
-             Proj = new projectile(Angle,Force); // Create a new projectile
-             qDebug() << "New Projectile Created!";
-         }
+     {
+         Proj = new projectile(Angle,Force); // Create a new projectile
+         scene->addItem(Proj);
+     }
 
 }
 

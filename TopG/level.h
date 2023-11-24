@@ -4,6 +4,7 @@
 #include "obstacles.h"
 #include <QGraphicsPixmapItem>
 #include <QObject>
+
 class GameWindow;
 class Level : public QObject
 {
@@ -14,10 +15,10 @@ public:
     void setTarget();
     void SetObstacles();
     void IncreaseDiffculity();
+    target *t;
 private:
     int LevelDifficulty;
     int level;
-    target* T;
     GameWindow* gw;
 };
 

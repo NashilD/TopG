@@ -22,8 +22,8 @@ void Level::setTarget(){
 
     if (level == 1)
     {
-        T = new target(396,295,80,80);
-        gw->scene->addItem(T);
+        t = new target(396,295,80,80);
+        gw->scene->addItem(t);
     }
 }
 
