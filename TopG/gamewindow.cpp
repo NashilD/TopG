@@ -5,7 +5,6 @@
 #include "projectile.h"
 #include <QMessageBox>
 
-
 GameWindow::GameWindow()
 {
     Force = 0;
@@ -33,22 +32,21 @@ GameWindow::~GameWindow()
 void GameWindow::displayStartMessage()
 {
     Started = false;
-    QGraphicsTextItem *startMessage = new QGraphicsTextItem("Click to start the game.\n Use the left and right arrows to control the force.\n Use the up and down arrows to control the angle.");
-    QFont font;
-    font.setPixelSize(20); // Set the font size as needed
-    startMessage->setFont(font);
-    startMessage->setPos(396, 307);
-
+    QGraphicsTextItem *startMessage = new QGraphicsTextItem("Use the left and right arrows to control the force.\nUse the up and down arrows to control the angle.\nPress P to fire.\nClick to start the game.");
+    startMessage->setFont(QFont("times",25));
+    startMessage->setPos(180, 275);
+    startMessage->setDefaultTextColor(Qt::black);
     scene->addItem(startMessage);
 }
 
 void GameWindow::FinLevel()
 {
     scene->clear();
-    QGraphicsTextItem* FinishMessage = new QGraphicsTextItem("Finsihed with level " +QString::number(Current_Level));
+    QGraphicsTextItem* FinishMessage = new QGraphicsTextItem("Finished with level " +QString::number(Current_Level));
     FinishMessage->setFont(QFont("times",50));
-    FinishMessage->setPos(396,307);
+    FinishMessage->setPos(198,307);
     FinishMessage->setDefaultTextColor(Qt::green);
+    finLevel = true;
     scene->addItem(FinishMessage);
 }
 
@@ -57,7 +55,7 @@ void GameWindow::Lost()
     scene->clear();
     QGraphicsTextItem* LostMessage = new QGraphicsTextItem("You lost at level " +QString::number(Current_Level));
     LostMessage->setFont(QFont("times",50));
-    LostMessage->setPos(396,307);
+    LostMessage->setPos(198,307);
     LostMessage->setDefaultTextColor(Qt::red);
     scene->addItem(LostMessage);
 }
@@ -75,10 +73,12 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
         Started = true;
     }
 
-    if (Started = true)
+    if (Started == true)
     {
         Current_Level = 1;
         Remaing_shots = 10;
+
+        finLevel = false;
 
         textLevel = new QGraphicsTextItem("Level "+ QString::number(Current_Level));
         textLevel->setFont(QFont("times",16));
@@ -109,9 +109,8 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
         scene->addItem(TextAngle);
         scene->addItem(TextForce);
 
-        L = new Level(1,this);
+        L = new Level(Current_Level,this);
     }
-
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *event)
@@ -123,12 +122,12 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
     }
     else if(event -> key() == Qt::Key_Down)
     {
-        Angle -= 10;
+        Angle -= 5;
         TextAngle->setPlainText("Angle: " + QString::number(Angle));
     }
     if(event -> key() == Qt::Key_Right)
     {
-        Force += 10;
+        Force += 5;
         TextForce->setPlainText("Force: " + QString::number(Force));
     }
     if(event -> key() == Qt::Key_Left)
@@ -148,16 +147,11 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
          textShots->setPos(800,610);
          textShots->setDefaultTextColor(Qt::black);
          scene->addItem(textShots);
-         Proj = new projectile(Angle,Force); // Create a new projectile
+         Proj = new projectile(Angle,Force, L, this); // Create a new projectile
 
          scene->addItem(Proj);
-         if (Proj->GetCollision() == true)
-         {
-            QMessageBox::information(nullptr,"info","Done");
-            FinLevel();
-         }
 
-         if (Remaing_shots == 0)
+         if ((Remaing_shots == 0) && (finLevel == false))
          {
             Lost();
          }

@@ -2,6 +2,7 @@
 #define PROJECTILE_H
 
 #include "target.h"
+#include "gamewindow.h"
 #include <QGraphicsScene>
 #include <QGraphicsLineItem>
 #include <QGraphicsPixmapItem>
@@ -11,14 +12,15 @@
 #include <QObject>
 #include <QTimer>
 
+class Level;
+
 class projectile : public QObject , public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-   projectile(double a, double f);
+    projectile(double a, double f, Level *l, GameWindow *gw);
     void setAngle(double angle);
     void setForce(double force);
-    bool GetCollision();
 public slots:
     void move();
 
@@ -29,8 +31,10 @@ private:
     double angle;
     double force;
     double step_x, step_y;
-    bool TargetDown;
     QTimer* timer;
+    Level *currentlevel;
+    GameWindow *gamewindow;
+    int count;
 };
 
 #endif // PROJECTILE_H

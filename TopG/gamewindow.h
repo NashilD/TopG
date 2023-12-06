@@ -14,7 +14,10 @@
 #include <QMouseEvent>
 #include <QTimer>
 #include "player.h"
-#include "level.h"
+//#include "level.h"
+
+class Level;
+class projectile;
 
 class GameWindow : public QGraphicsView
 {
@@ -38,7 +41,7 @@ protected:
 private:
     int Current_Level;
     int Remaing_shots;
-    bool Started, projCreated;
+    bool Started, projCreated, finLevel;
     player* Player;
     Level* L;
     double Angle;
@@ -48,7 +51,6 @@ private:
     QGraphicsTextItem* textLevel;
     QGraphicsTextItem* textShots;
     projectile * Proj;
-
 };
 #endif // GAMEWINDOW_H
 
