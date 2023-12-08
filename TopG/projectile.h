@@ -1,7 +1,6 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 
-#include "target.h"
 #include "gamewindow.h"
 #include <QGraphicsScene>
 #include <QGraphicsLineItem>
@@ -11,14 +10,17 @@
 #include <QPointF>
 #include <QObject>
 #include <QTimer>
+#include <QVector>
+#include "obstacles.h"
 
-class Level;
+class target;
+
 
 class projectile : public QObject , public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    projectile(double a, double f, Level *l, GameWindow *gw);
+    projectile(double a, double f, QVector<target*> &TVec, GameWindow *gw);
     void setAngle(double angle);
     void setForce(double force);
 public slots:
@@ -32,9 +34,8 @@ private:
     double force;
     double step_x, step_y;
     QTimer* timer;
-    Level *currentlevel;
     GameWindow *gamewindow;
-    int count;
+    QVector<target*> Ptargets;
 };
 
 #endif // PROJECTILE_H

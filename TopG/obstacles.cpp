@@ -8,7 +8,7 @@ Obstacles::Obstacles(int x, int y, int width, int height) : QObject(), QGraphics
     OHeight = height;
     OHitStatus = false;
 
-    QPixmap obstacle("");
+    QPixmap obstacle(":/images/boxes.jpeg");
     obstacle = obstacle.scaledToHeight(height);
     obstacle = obstacle.scaledToWidth(width);
     setPixmap(obstacle);

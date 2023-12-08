@@ -1,4 +1,5 @@
 #include "level.h"
+#include "obstacles.h"
 #include "gamewindow.h"
 
 Level::Level(int num, GameWindow *GW)
@@ -6,6 +7,7 @@ Level::Level(int num, GameWindow *GW)
     level = num;
     gw = GW;
     setTarget();
+    SetObstacles();
 }
 
 void Level::SetLevelDIF(int LevelDIf)
@@ -53,9 +55,21 @@ void Level::setTarget()
          }
     }
 
-    if ((level >= 7) && (level <=10))
+    if ((level >= 7) && (level <=9))
     {
          for (int i = 0; i <3; i++)
+         {
+             int X = distribution1(gen);
+             int Y = distribution2(gen);
+             t = new target(X,Y,80,80);
+             gw->scene->addItem(t);
+             Vtargets.push_back(t);
+         }
+    }
+
+    if ((level == 10))
+    {
+         for (int i = 0; i <1; i++)
          {
              int X = distribution1(gen);
              int Y = distribution2(gen);
@@ -68,31 +82,87 @@ void Level::setTarget()
 
 void Level::SetObstacles()
 {
-    lowerBoundX = 25;
-    upperBoundX = 800;
-    lowerBoundY = 10;
-    upperBoundY = 610;
+    int count = -1;
+    int X, Y;
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-
-    std::uniform_int_distribution<int> distribution1(lowerBoundX, upperBoundX);
-    std::uniform_int_distribution<int> distribution2(lowerBoundY, upperBoundY);
-
-    if ((level >= 2) && (level <=3))
+    if ((level == 2) && (level == 5) && (level == 8))
     {
-        for (int i = 0; i < level; i++ )
-        {
-         //int X = distribution1(gen);
-         //int Y = distribution2(gen);
-         //t = new target(X,Y,80,80);
-         //gw->scene->addItem(t);
-         //Vtargets.push_back(t);
-        }
-    }
+         for (int j = 0; j<Vtargets.size(); j++)
+         {
+             for (int i = 0; i < LevelDifficulty + 1; i++)
+             {
+                 if (Vobstacles.empty())
+                 {
+                     X = Vtargets[j]->GetPosX() - 80;
+                     Y = Vtargets[j]->GetPosY();
+                 }
+                 else
+                 {
+                     count++;
+                     X = Vobstacles[count]->GetPosX();
+                     Y = Vobstacles[count]->GetPosY() - 80;
+                 }
+                 Obstacles* obstacle = new Obstacles(X, Y, 80, 80);
+                 gw->scene->addItem(obstacle);
+                 Vobstacles.push_back(obstacle);
 
-}
-void Level::IncreaseDiffculity()
-{
-    LevelDifficulty++;
+                 //qDebug() <<
+             }
+
+             Vobstacles.clear();
+         }
+
+    }
+    else if ((level == 3) && (level == 6) && (level == 9))
+    {
+         for (int j = 0; j<Vtargets.size(); j++)
+         {
+             for (int i = 0; i < LevelDifficulty + 1; i++)
+             {
+                 if (Vobstacles.empty())
+                 {
+                     X = Vtargets[j]->GetPosX() - 80;
+                     Y = Vtargets[j]->GetPosY();
+                 }
+                 else
+                 {
+                     count++;
+                     X = Vobstacles[count]->GetPosX();
+                     Y = Vobstacles[count]->GetPosY() - 80;
+                 }
+                 Obstacles* obstacle = new Obstacles(X, Y, 80, 80);
+                 gw->scene->addItem(obstacle);
+                 Vobstacles.push_back(obstacle);
+             }
+
+             Vobstacles.clear();
+         }
+
+    }
+    else if (level == 10)
+    {
+         for (int j = 0; j<Vtargets.size(); j++)
+         {
+             for (int i = 0; i < LevelDifficulty + 1; i++)
+             {
+                 if (Vobstacles.empty())
+                 {
+                     X = Vtargets[j]->GetPosX() - 80;
+                     Y = Vtargets[j]->GetPosY();
+                 }
+                 else
+                 {
+                     count++;
+                     X = Vobstacles[count]->GetPosX();
+                     Y = Vobstacles[count]->GetPosY() - 80;
+                 }
+                 Obstacles* obstacle = new Obstacles(X, Y, 80, 80);
+                 gw->scene->addItem(obstacle);
+                 Vobstacles.push_back(obstacle);
+             }
+
+             Vobstacles.clear();
+         }
+
+    }
 }

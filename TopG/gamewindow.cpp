@@ -7,14 +7,17 @@
 
 GameWindow::GameWindow()
 {
-    Force = 0;
-    Angle = 0;
     projCreated = false;
+    Done = false;
     scene = new QGraphicsScene;
+    count =0;
+    LevelDiff = 1;
+    Current_Level = 9;
+    Remaing_shots = 10;
 
     scene->setSceneRect(0, 0, 1000, 650);
     setFixedSize(1000,650);
-    setWindowTitle("Game Name");
+    setWindowTitle("Canon Shot");
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -26,7 +29,7 @@ GameWindow::GameWindow()
 
 GameWindow::~GameWindow()
 {
-    //delete ui;
+    //need to find what to put here
 }
 
 void GameWindow::displayStartMessage()
@@ -46,8 +49,30 @@ void GameWindow::FinLevel()
     FinishMessage->setFont(QFont("times",50));
     FinishMessage->setPos(198,307);
     FinishMessage->setDefaultTextColor(Qt::green);
+    count =0;
+    L->Vobstacles.clear();
+    Current_Level++;
+    Remaing_shots = 10;
+    if ((Current_Level == 4) || (Current_Level ==7))
+    {
+        LevelDiff = 1;
+    }
+    else
+        LevelDiff++;
     finLevel = true;
     scene->addItem(FinishMessage);
+}
+
+void GameWindow::DoneGame()
+{
+    scene->clear();
+    L->Vobstacles.clear();
+    Done = true;
+    QGraphicsTextItem* DoneGame = new QGraphicsTextItem("Congratulations! You've completed Canon shot!\nThank you for playing our game.\ncredit:\nNashil Dayanand\nMaha Shakshuki\nEman Hegab\nMariam\n Options:\nPress 1 to replay the game.\nPress 2 to quit the game.");
+    DoneGame->setFont(QFont("times",50));
+    DoneGame->setPos(198,307);
+    DoneGame->setDefaultTextColor(Qt::green);
+    scene->addItem(DoneGame);
 }
 
 void GameWindow::Lost()
@@ -65,6 +90,21 @@ void GameWindow::addToScene(QGraphicsPixmapItem *temp)
     scene->addItem(temp);
 }
 
+void GameWindow::AddCount()
+{
+    count++;
+}
+
+int GameWindow::GetCount()
+{
+    return count;
+}
+
+int GameWindow::getCurrentLevel()
+{
+    return Current_Level;
+}
+
 void GameWindow::mousePressEvent(QMouseEvent *event)
 {
     if (scene->items().size() > 0)
@@ -75,8 +115,8 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
 
     if (Started == true)
     {
-        Current_Level = 1;
-        Remaing_shots = 10;
+        Force = 0;
+        Angle = 0;
 
         finLevel = false;
 
@@ -110,6 +150,7 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
         scene->addItem(TextForce);
 
         L = new Level(Current_Level,this);
+        L->SetLevelDIF(LevelDiff);
     }
 }
 
@@ -147,7 +188,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
          textShots->setPos(800,610);
          textShots->setDefaultTextColor(Qt::black);
          scene->addItem(textShots);
-         Proj = new projectile(Angle,Force, L, this); // Create a new projectile
+         Proj = new projectile(Angle,Force, L->Vtargets, this); // Create a new projectile
 
          scene->addItem(Proj);
 
@@ -155,6 +196,27 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
          {
             Lost();
          }
+     }
+
+    if (Done == true)
+     {
+         if (event->key() == Qt::Key_1)
+         {
+            scene->clear();
+            projCreated = false;
+            Done = false;
+            scene = new QGraphicsScene;
+            count =0;
+            LevelDiff = 1;
+            Current_Level = 1;
+            Remaing_shots = 10;
+            displayStartMessage();
+         }
+         else if (event->key() == Qt::Key_2)
+         {
+           QCoreApplication::quit();
+         }
+
      }
 
 }

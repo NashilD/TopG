@@ -59,10 +59,10 @@ void target::SetHeight(int NewHeight)
 
 bool target::GetStatus()
 {
-    return THitStatus;
+    return this->THitStatus;
 }
 
 void target::SetStatus(bool NewStatus)
 {
-    THitStatus = NewStatus;
+    this->THitStatus = NewStatus;
 }

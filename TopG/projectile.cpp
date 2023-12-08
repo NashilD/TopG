@@ -1,14 +1,15 @@
 #include "projectile.h"
 #include "level.h"
 #include "gamewindow.h"
+#include "obstacles.h"
 #include <QTimer>
 #include <QPixmap>
 #include <qmath.h>
 #include <QGraphicsItem>
-#include <QMessageBox>
+#include <QDebug>
 
 
-projectile::projectile(double a, double f, Level *l, GameWindow *gw) : QObject(), QGraphicsPixmapItem()
+projectile::projectile(double a, double f, QVector<target*> &TVec, GameWindow *gw) : QObject(), QGraphicsPixmapItem(), Ptargets(TVec)
 {
     QPixmap projectilePixmap(":/images/pngimg.com - cannonball_PNG2.png");
     projectilePixmap = projectilePixmap.scaledToHeight(55);
@@ -16,9 +17,7 @@ projectile::projectile(double a, double f, Level *l, GameWindow *gw) : QObject()
     setPixmap(projectilePixmap);
     force = f;
     angle = a;
-    currentlevel = l;
     gamewindow = gw;
-    count = 0;
     setPos(10,295);
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
@@ -31,33 +30,38 @@ void projectile::move()
 {
     setPos(x()+step_x, y()+step_y);
 
-    QList<QGraphicsItem *> collidningitem= collidingItems();
-    for(int i =0 , n =collidningitem.size(); i<n ; i++){
-        if(typeid (*(collidningitem[i]))==typeid (target))
+    QList<QGraphicsItem *> collidning_item= collidingItems();
+    for(int i =0; i< collidning_item.size() ; i++)
+    {
+        if(typeid (*(collidning_item[i]))==typeid (Obstacles))
         {
-            target *hitTarget = dynamic_cast<target *>(collidningitem[i]);
-            if (hitTarget)
+            gamewindow->scene->removeItem(collidning_item[i]);
+            gamewindow->scene->removeItem(this);
+            delete collidning_item[i];
+            delete this;
+            return;
+        }
+
+        if(typeid (*(collidning_item[i]))==typeid (target))
+        {
+            gamewindow->AddCount();
+            gamewindow->scene->removeItem(collidning_item[i]);
+            gamewindow->scene->removeItem(this);
+
+            if (gamewindow->GetCount() == Ptargets.size())
             {
-                hitTarget->SetStatus(true);
+                if (gamewindow->getCurrentLevel() == 10)
+                {
+                    Ptargets.clear();
+                    gamewindow->DoneGame();
+                }
+                else
+                {
+                    Ptargets.clear();
+                    gamewindow->FinLevel();
+                }
             }
-
-
-            for(const auto &element : currentlevel->Vtargets)
-            {
-                if (element->GetStatus() == true)
-                    count++;
-            }
-
-            //QMessageBox::information(nullptr,"info",QString::number(currentlevel->Vtargets.size()) + " count: " + QString::number(count));
-
-            scene()->removeItem(collidningitem[i]);
-            scene()->removeItem(this);
-
-            if (count == currentlevel->Vtargets.size())
-            {
-                gamewindow->FinLevel();
-            }
-            delete collidningitem[i];
+            delete collidning_item[i];
             delete this;
             return;
         }

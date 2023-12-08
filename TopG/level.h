@@ -1,15 +1,17 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 #include "target.h"
-#include "obstacles.h"
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QVector>
 #include <random>
+#include "obstacles.h"
+
 
 class GameWindow;
 class target;
-class Obstacles;
+//class Obstacles;
+
 class Level : public QObject
 {
 public:
@@ -18,7 +20,6 @@ public:
     int getLevelDif();
     void setTarget();
     void SetObstacles();
-    void IncreaseDiffculity();
     QVector<target*> Vtargets;
     QVector<Obstacles*> Vobstacles;
     target *t;
