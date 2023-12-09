@@ -15,7 +15,7 @@ class target;
 class Level : public QObject
 {
 public:
-    Level(int num, GameWindow* GW);
+    Level(int num, GameWindow* GW, int LD);
     void SetLevelDIF (int LevelDIf);
     int getLevelDif();
     void setTarget();

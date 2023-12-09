@@ -6,7 +6,6 @@
 #include <QPixmap>
 #include <qmath.h>
 #include <QGraphicsItem>
-#include <QDebug>
 
 
 projectile::projectile(double a, double f, QVector<target*> &TVec, GameWindow *gw) : QObject(), QGraphicsPixmapItem(), Ptargets(TVec)

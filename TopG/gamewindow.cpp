@@ -4,6 +4,7 @@
 #include "trajectory.h"
 #include "projectile.h"
 #include <QMessageBox>
+#include <QDebug>
 
 GameWindow::GameWindow()
 {
@@ -12,7 +13,7 @@ GameWindow::GameWindow()
     scene = new QGraphicsScene;
     count =0;
     LevelDiff = 1;
-    Current_Level = 9;
+    Current_Level = 1;
     Remaing_shots = 10;
 
     scene->setSceneRect(0, 0, 1000, 650);
@@ -69,7 +70,7 @@ void GameWindow::DoneGame()
     L->Vobstacles.clear();
     Done = true;
     QGraphicsTextItem* DoneGame = new QGraphicsTextItem("Congratulations! You've completed Canon shot!\nThank you for playing our game.\ncredit:\nNashil Dayanand\nMaha Shakshuki\nEman Hegab\nMariam\n Options:\nPress 1 to replay the game.\nPress 2 to quit the game.");
-    DoneGame->setFont(QFont("times",50));
+    DoneGame->setFont(QFont("times",25));
     DoneGame->setPos(198,307);
     DoneGame->setDefaultTextColor(Qt::green);
     scene->addItem(DoneGame);
@@ -149,8 +150,9 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
         scene->addItem(TextAngle);
         scene->addItem(TextForce);
 
-        L = new Level(Current_Level,this);
-        L->SetLevelDIF(LevelDiff);
+        L = new Level(Current_Level,this, LevelDiff);
+        qDebug() <<"LevelDiff from GW: " << LevelDiff;
+        qDebug() <<"LevelDiff from L: " << L->getLevelDif();
     }
 }
 

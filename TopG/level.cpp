@@ -1,11 +1,13 @@
 #include "level.h"
 #include "obstacles.h"
 #include "gamewindow.h"
+#include <QDebug>
 
-Level::Level(int num, GameWindow *GW)
+Level::Level(int num, GameWindow *GW, int LD)
 {
     level = num;
     gw = GW;
+    LevelDifficulty = LD;
     setTarget();
     SetObstacles();
 }
@@ -69,7 +71,7 @@ void Level::setTarget()
 
     if ((level == 10))
     {
-         for (int i = 0; i <1; i++)
+         for (int i = 0; i <4; i++)
          {
              int X = distribution1(gen);
              int Y = distribution2(gen);
@@ -85,11 +87,12 @@ void Level::SetObstacles()
     int count = -1;
     int X, Y;
 
-    if ((level == 2) && (level == 5) && (level == 8))
+    qDebug() <<"Level Difficulty: " << LevelDifficulty;
+    if ((level == 2) || (level == 5) || (level == 8))
     {
          for (int j = 0; j<Vtargets.size(); j++)
          {
-             for (int i = 0; i < LevelDifficulty + 1; i++)
+             for (int i = 0; i < LevelDifficulty; i++)
              {
                  if (Vobstacles.empty())
                  {
@@ -105,19 +108,17 @@ void Level::SetObstacles()
                  Obstacles* obstacle = new Obstacles(X, Y, 80, 80);
                  gw->scene->addItem(obstacle);
                  Vobstacles.push_back(obstacle);
-
-                 //qDebug() <<
              }
 
              Vobstacles.clear();
          }
 
     }
-    else if ((level == 3) && (level == 6) && (level == 9))
+    else if ((level == 3) || (level == 6) || (level == 9))
     {
          for (int j = 0; j<Vtargets.size(); j++)
          {
-             for (int i = 0; i < LevelDifficulty + 1; i++)
+             for (int i = 0; i < LevelDifficulty; i++)
              {
                  if (Vobstacles.empty())
                  {
@@ -143,7 +144,7 @@ void Level::SetObstacles()
     {
          for (int j = 0; j<Vtargets.size(); j++)
          {
-             for (int i = 0; i < LevelDifficulty + 1; i++)
+             for (int i = 0; i < LevelDifficulty; i++)
              {
                  if (Vobstacles.empty())
                  {
