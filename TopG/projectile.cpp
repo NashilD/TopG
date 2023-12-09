@@ -2,7 +2,6 @@
 #include "level.h"
 #include "gamewindow.h"
 #include "obstacles.h"
-#include <QTimer>
 #include <QPixmap>
 #include <qmath.h>
 #include <QGraphicsItem>

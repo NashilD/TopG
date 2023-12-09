@@ -4,6 +4,7 @@
 #include "trajectory.h"
 #include "projectile.h"
 #include <QMessageBox>
+#include <QTimer>
 
 GameWindow::GameWindow()
 {
