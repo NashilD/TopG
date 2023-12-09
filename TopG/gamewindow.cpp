@@ -13,7 +13,7 @@ GameWindow::GameWindow()
     scene = new QGraphicsScene;
     count =0;
     LevelDiff = 3;
-    Current_Level = 1;
+    Current_Level = 9;
     Remaing_shots = 10;
 
     scene->setSceneRect(0, 0, 1000, 650);
@@ -45,7 +45,7 @@ void GameWindow::displayStartMessage()
 void GameWindow::FinLevel()
 {
     scene->clear();
-    QGraphicsTextItem* FinishMessage = new QGraphicsTextItem("Finished with level " +QString::number(Current_Level));
+    QGraphicsTextItem* FinishMessage = new QGraphicsTextItem("Finished with level " +QString::number(Current_Level) +"\nRight click too proceed");
     FinishMessage->setFont(QFont("times",50));
     FinishMessage->setPos(198,307);
     FinishMessage->setDefaultTextColor(Qt::green);
@@ -78,9 +78,10 @@ void GameWindow::DoneGame()
 void GameWindow::Lost()
 {
     scene->clear();
-    QGraphicsTextItem* LostMessage = new QGraphicsTextItem("You lost at level " +QString::number(Current_Level));
+    Done = true;
+    QGraphicsTextItem* LostMessage = new QGraphicsTextItem("You lost at level " +QString::number(Current_Level) + "\nPress 1 to Restart.\nPress 2 to Quit.");
     LostMessage->setFont(QFont("times",50));
-    LostMessage->setPos(198,307);
+    LostMessage->setPos(198,200);
     LostMessage->setDefaultTextColor(Qt::red);
     scene->addItem(LostMessage);
 }
