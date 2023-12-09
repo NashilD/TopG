@@ -17,6 +17,7 @@ projectile::projectile(double a, double f, QVector<target*> &TVec, GameWindow *g
     force = f;
     angle = a;
     gamewindow = gw;
+    finLevel = false;
     setPos(10,295);
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
@@ -58,12 +59,18 @@ void projectile::move()
                 {
                     Ptargets.clear();
                     gamewindow->FinLevel();
+                    finLevel = true;
                 }
             }
             delete collidning_item[i];
             delete this;
             return;
         }
+    }
+
+    if ((gamewindow->GetShots() == 0) && (finLevel == false))
+    {
+        gamewindow->Lost();
     }
     step_y+=0.49;
 }

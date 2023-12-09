@@ -10,7 +10,6 @@
 
 class GameWindow;
 class target;
-//class Obstacles;
 
 class Level : public QObject
 {

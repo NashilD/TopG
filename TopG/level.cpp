@@ -1,7 +1,6 @@
 #include "level.h"
 #include "obstacles.h"
 #include "gamewindow.h"
-#include <QDebug>
 
 Level::Level(int num, GameWindow *GW, int LD)
 {
@@ -24,10 +23,12 @@ int Level::getLevelDif()
 
 void Level::setTarget()
 {
-    lowerBoundX = 25;
+    lowerBoundX = 75;
     upperBoundX = 800;
-    lowerBoundY = 10;
+    lowerBoundY = 25;
     upperBoundY = 610;
+
+    int X,Y;
 
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -38,8 +39,8 @@ void Level::setTarget()
 
     if ((level >= 1) && (level <=3))
     {
-         int X = distribution1(gen);
-         int Y = distribution2(gen);
+         X = distribution1(gen);
+         Y = distribution2(gen);
          t = new target(X,Y,80,80);
          gw->scene->addItem(t);
          Vtargets.push_back(t);
@@ -49,8 +50,8 @@ void Level::setTarget()
     {
          for (int i = 0; i <2; i++)
          {
-             int X = distribution1(gen);
-             int Y = distribution2(gen);
+             X = distribution1(gen);
+             Y = distribution2(gen);
              t = new target(X,Y,80,80);
              gw->scene->addItem(t);
              Vtargets.push_back(t);
@@ -61,8 +62,8 @@ void Level::setTarget()
     {
          for (int i = 0; i <3; i++)
          {
-             int X = distribution1(gen);
-             int Y = distribution2(gen);
+             X = distribution1(gen);
+             Y = distribution2(gen);
              t = new target(X,Y,80,80);
              gw->scene->addItem(t);
              Vtargets.push_back(t);
@@ -73,8 +74,8 @@ void Level::setTarget()
     {
          for (int i = 0; i <4; i++)
          {
-             int X = distribution1(gen);
-             int Y = distribution2(gen);
+             X = distribution1(gen);
+             Y = distribution2(gen);
              t = new target(X,Y,80,80);
              gw->scene->addItem(t);
              Vtargets.push_back(t);
@@ -87,17 +88,18 @@ void Level::SetObstacles()
     int count = -1;
     int X, Y;
 
-    qDebug() <<"Level Difficulty: " << LevelDifficulty;
     if ((level == 2) || (level == 5) || (level == 8))
     {
          for (int j = 0; j<Vtargets.size(); j++)
          {
              for (int i = 0; i < LevelDifficulty; i++)
              {
+                 count = -1;
                  if (Vobstacles.empty())
                  {
                      X = Vtargets[j]->GetPosX() - 80;
                      Y = Vtargets[j]->GetPosY();
+                     qDebug() << "j: " << j;
                  }
                  else
                  {
@@ -118,6 +120,7 @@ void Level::SetObstacles()
     {
          for (int j = 0; j<Vtargets.size(); j++)
          {
+             count = -1;
              for (int i = 0; i < LevelDifficulty; i++)
              {
                  if (Vobstacles.empty())
@@ -144,6 +147,7 @@ void Level::SetObstacles()
     {
          for (int j = 0; j<Vtargets.size(); j++)
          {
+             count = -1;
              for (int i = 0; i < LevelDifficulty; i++)
              {
                  if (Vobstacles.empty())

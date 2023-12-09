@@ -27,7 +27,7 @@ public slots:
     void move();
 
 private:
-    bool mousePressed;
+    bool finLevel;
     QPointF startPoint;
     QPointF endPoint;
     double angle;

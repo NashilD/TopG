@@ -4,7 +4,6 @@
 #include "trajectory.h"
 #include "projectile.h"
 #include <QMessageBox>
-#include <QDebug>
 
 GameWindow::GameWindow()
 {
@@ -12,25 +11,24 @@ GameWindow::GameWindow()
     Done = false;
     scene = new QGraphicsScene;
     count =0;
-    LevelDiff = 1;
+    LevelDiff = 3;
     Current_Level = 1;
     Remaing_shots = 10;
 
     scene->setSceneRect(0, 0, 1000, 650);
     setFixedSize(1000,650);
-    setWindowTitle("Canon Shot");
+    setWindowTitle("Canonfire Strike");
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     setScene(scene);
-
     displayStartMessage();
 }
 
-GameWindow::~GameWindow()
+int GameWindow::GetShots()
 {
-    //need to find what to put here
+    return Remaing_shots;
 }
 
 void GameWindow::displayStartMessage()
@@ -69,9 +67,9 @@ void GameWindow::DoneGame()
     scene->clear();
     L->Vobstacles.clear();
     Done = true;
-    QGraphicsTextItem* DoneGame = new QGraphicsTextItem("Congratulations! You've completed Canon shot!\nThank you for playing our game.\ncredit:\nNashil Dayanand\nMaha Shakshuki\nEman Hegab\nMariam\n Options:\nPress 1 to replay the game.\nPress 2 to quit the game.");
+    QGraphicsTextItem* DoneGame = new QGraphicsTextItem("Congratulations! You've completed Canonfire Strike!\nThank you for playing our game.\ncredit:\nNashil Dayanand\nMaha Shakshuki\nEman Hegab\nMariam Gaballah\nOptions:\nPress 1 to replay the game.\nPress 2 to quit the game.");
     DoneGame->setFont(QFont("times",25));
-    DoneGame->setPos(198,307);
+    DoneGame->setPos(198,100);
     DoneGame->setDefaultTextColor(Qt::green);
     scene->addItem(DoneGame);
 }
@@ -151,8 +149,6 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
         scene->addItem(TextForce);
 
         L = new Level(Current_Level,this, LevelDiff);
-        qDebug() <<"LevelDiff from GW: " << LevelDiff;
-        qDebug() <<"LevelDiff from L: " << L->getLevelDif();
     }
 }
 
@@ -190,14 +186,8 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
          textShots->setPos(800,610);
          textShots->setDefaultTextColor(Qt::black);
          scene->addItem(textShots);
-         Proj = new projectile(Angle,Force, L->Vtargets, this); // Create a new projectile
-
+         Proj = new projectile(Angle,Force, L->Vtargets, this);
          scene->addItem(Proj);
-
-         if ((Remaing_shots == 0) && (finLevel == false))
-         {
-            Lost();
-         }
      }
 
     if (Done == true)
@@ -207,7 +197,6 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
             scene->clear();
             projCreated = false;
             Done = false;
-            scene = new QGraphicsScene;
             count =0;
             LevelDiff = 1;
             Current_Level = 1;

@@ -26,8 +26,6 @@ class GameWindow : public QGraphicsView
 
 public:
     GameWindow();
-    ~GameWindow();
-    bool Game_over;
     int GetShots();
     void SetShots(int);
     int GetLevel();
